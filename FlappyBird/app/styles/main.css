@@ -4,7 +4,25 @@
 	left: 0;
 	width: 5em;
 	height: 5em;
-	background: blue;
+	background: yellow;
+}
+
+.UpperPipe {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 10em;
+	height: 20em;
+	background: green;
+}
+
+.LowerPipe {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 10em;
+	height: 20em;
+	background: green;
 }
 
 .Scoreboard {
@@ -60,5 +78,5 @@ height: 57.6em;
 margin-left: -51.2em;
 margin-top: -28.8em;
 overflow: hidden;
-background: red;
+background: lightblue;
 }

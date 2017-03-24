@@ -1,4 +1,4 @@
-window.Player = (function() {
+window.Pipe = (function() {
 	'use strict';
 
 	var Controls = window.Controls;
@@ -8,12 +8,12 @@ window.Player = (function() {
 	var SPEED = 30; // * 10 pixels per second
 	var WIDTH = 5;
 	var HEIGHT = 5;
-	var INITIAL_POSITION_X = 30;
+	var INITIAL_POSITION_X = 40;
 	var INITIAL_POSITION_Y = 25;
 	var GRAVITY_SPEED = 25;
 	var GRAVITY = false;
 
-	var Player = function(el, game) {
+	var Pipe = function(el, game) {
 		this.el = el;
 		this.game = game;
 		this.pos = { x: 0, y: 0 };
@@ -22,39 +22,26 @@ window.Player = (function() {
 	/**
 	 * Resets the state of the player for a new game.
 	 */
-	Player.prototype.reset = function() {
-		this.pos.x = INITIAL_POSITION_X;
-		this.pos.y = INITIAL_POSITION_Y;
+	Pipe.prototype.reset = function(x_pos, y_pos) {
+		this.pos.x = x_pos;
+		this.pos.y = y_pos;
 	};
 
-	Player.prototype.onFrame = function(delta) {
+	Pipe.prototype.onFrame = function(delta) {
 		if (GRAVITY) {
-			this.pos.y += delta * GRAVITY_SPEED;
-		}
-		if (Controls.keys.right) {
-			this.pos.x += delta * SPEED;
-		}
-		if (Controls.keys.left) {
-			this.pos.x -= delta * SPEED;
-		}
-		if (Controls.keys.down) {
-			this.pos.y += delta * SPEED;
-		}
-		if (Controls.keys.up) {
-			this.pos.y -= delta * SPEED;
+			this.pos.x -= delta * GRAVITY_SPEED;
 		}
 		if (Controls.keys.space) {
 			GRAVITY = true;
-			this.pos.y -= delta + 0.06 * SPEED;
 		}
 
-		this.checkCollisionWithBounds();
+		//this.checkCollisionWithBounds();
 
 		// Update UI
 		this.el.css('transform', 'translate(' + this.pos.x + 'em, ' + this.pos.y + 'em)');
 	};
 
-	Player.prototype.checkCollisionWithBounds = function() {
+	Pipe.prototype.checkCollisionWithBounds = function() {
 		if (this.pos.x < 0 ||
 			this.pos.x + WIDTH > this.game.WORLD_WIDTH ||
 			this.pos.y < 0 ||
@@ -63,6 +50,6 @@ window.Player = (function() {
 		}
 	};
 
-	return Player;
+	return Pipe;
 
 })();
