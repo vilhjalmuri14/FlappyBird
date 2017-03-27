@@ -9,9 +9,9 @@ window.Game = (function() {
 	 */
 	var Game = function(el) {
 		this.el = el;
-		this.player = new window.Player(this.el.find('.Player'), this);
 		this.upperPipe = new window.Pipe(this.el.find('.UpperPipe'), this);
 		this.lowerPipe = new window.Pipe(this.el.find('.LowerPipe'), this);
+		this.player = new window.Player(this.el.find('.Player'), this, this.upperPipe, this.lowerPipe);
 		this.isPlaying = false;
 
 		// Cache a bound onFrame since we need it each frame.

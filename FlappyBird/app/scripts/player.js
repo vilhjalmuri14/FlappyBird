@@ -7,15 +7,17 @@ window.Player = (function() {
 	// for 1024x576px canvas.
 	var SPEED = 30; // * 10 pixels per second
 	var WIDTH = 5;
-	var HEIGHT = 5;
+	var HEIGHT = 9;
 	var INITIAL_POSITION_X = 30;
 	var INITIAL_POSITION_Y = 25;
 	var GRAVITY_SPEED = 25;
 	var GRAVITY = false;
 
-	var Player = function(el, game) {
+	var Player = function(el, game, upperpipe, lowerpipe) {
 		this.el = el;
 		this.game = game;
+		this.upperpipe = upperpipe;
+		this.lowerpipe = lowerpipe;
 		this.pos = { x: 0, y: 0 };
 	};
 
@@ -56,6 +58,7 @@ window.Player = (function() {
 		}
 
 		this.checkCollisionWithBounds();
+		this.checkCollisionWithPipes();
 
 		// Update UI
 		this.el.css('transform', 'translateZ(0) translate(' + this.pos.x + 'em, ' + this.pos.y + 'em)');
@@ -67,6 +70,18 @@ window.Player = (function() {
 			this.pos.y < 0 ||
 			this.pos.y + HEIGHT > this.game.WORLD_HEIGHT) {
 			return this.game.gameover();
+		}
+	};
+
+	Player.prototype.checkCollisionWithPipes = function() {
+		console.log('playery: ' + this.pos.y + ' pipey: ' + this.upperpipe.pos.y)
+		if (this.pos.x > this.upperpipe.pos.x - 10 &&
+			this.pos.x > this.upperpipe.pos.x + 7) {
+
+			if(this.pos.y < this.upperpipe.pos.y) {
+				return this.game.gameover();
+			}
+			
 		}
 	};
 

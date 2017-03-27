@@ -35,13 +35,13 @@ window.Pipe = (function() {
 			GRAVITY = true;
 		}
 
-		//this.checkCollisionWithBounds();
+		//this.checkCollisionWithPlayer();
 
 		// Update UI
 		this.el.css('transform', 'translate(' + this.pos.x + 'em, ' + this.pos.y + 'em)');
 	};
 
-	Pipe.prototype.checkCollisionWithBounds = function() {
+	Pipe.prototype.checkCollisionWithPlayer = function() {
 		if (this.pos.x < 0 ||
 			this.pos.x + WIDTH > this.game.WORLD_WIDTH ||
 			this.pos.y < 0 ||

@@ -70,20 +70,20 @@
 
 .UpperPipe {
 	position: absolute;
-	top: 0;
+	top: -30em;
 	left: 0;
 	width: 10em;
-	height: 20em;
+	height: 50em;
 	background-image: url("../images/upperpipe.png");
 	background-size: 100% 100%;
 }
 
 .LowerPipe {
 	position: absolute;
-	top: 0;
+	bottom: 0;
 	left: 0;
 	width: 10em;
-	height: 20em;
+	height: 50em;
 	background-image: url("../images/lowerpipe.png");
 	background-size: 100% 100%;
 }
