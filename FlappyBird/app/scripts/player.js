@@ -30,7 +30,11 @@ window.Player = (function() {
 	Player.prototype.onFrame = function(delta) {
 		if (GRAVITY) {
 			this.pos.y += delta * GRAVITY_SPEED;
+
+			// default picture
+			this.el.css('background-image','url("../images/bird.png")');
 		}
+
 		if (Controls.keys.right) {
 			this.pos.x += delta * SPEED;
 		}
@@ -46,12 +50,15 @@ window.Player = (function() {
 		if (Controls.keys.space) {
 			GRAVITY = true;
 			this.pos.y -= delta + 0.06 * SPEED;
+
+			// changing picture
+			this.el.css('background-image','url("../images/birdup.png")');
 		}
 
 		this.checkCollisionWithBounds();
 
 		// Update UI
-		this.el.css('transform', 'translate(' + this.pos.x + 'em, ' + this.pos.y + 'em)');
+		this.el.css('transform', 'translateZ(0) translate(' + this.pos.x + 'em, ' + this.pos.y + 'em)');
 	};
 
 	Player.prototype.checkCollisionWithBounds = function() {

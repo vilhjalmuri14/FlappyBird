@@ -2,9 +2,49 @@
 	position: absolute;
 	top: 0;
 	left: 0;
-	width: 5em;
-	height: 5em;
-	background: yellow;
+	width: 7em;
+	height: 7em;
+	background-image: url("../images/bird.png");
+	background-repeat: no-repeat;
+	background-size: 100%;
+}
+
+.Player img {
+	width: 100%;
+	position:absolute;
+    left:0;
+    opacity: 1;
+    -webkit-transition: opacity 1s ease-in-out;
+    -moz-transition: opacity 1s ease-in-out;
+    -o-transition: opacity 1s ease-in-out;
+    -ms-transition: opacity 1s ease-in-out;    
+    transition: opacity 1s ease-in-out;
+}
+
+.Player img.top {
+    /* animation: 1.0s flap alternate infinite; */
+}
+
+.Player img.bottom {
+    /* animation: 1.0s flapup alternate infinite; */
+}
+
+@keyframes flapup {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
+}
+
+@keyframes flap {
+	from {
+		opacity: 1;
+	}
+	to {
+		opacity: 0;
+	}
 }
 
 .UpperPipe {
@@ -13,7 +53,8 @@
 	left: 0;
 	width: 10em;
 	height: 20em;
-	background: green;
+	background-image: url("../images/upperpipe.png");
+	background-size: 100% 100%;
 }
 
 .LowerPipe {
@@ -22,7 +63,8 @@
 	left: 0;
 	width: 10em;
 	height: 20em;
-	background: green;
+	background-image: url("../images/lowerpipe.png");
+	background-size: 100% 100%;
 }
 
 .Scoreboard {
