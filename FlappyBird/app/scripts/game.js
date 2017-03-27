@@ -9,9 +9,12 @@ window.Game = (function() {
 	 */
 	var Game = function(el) {
 		this.el = el;
-		this.upperPipe = new window.Pipe(this.el.find('.UpperPipe'), this);
-		this.lowerPipe = new window.Pipe(this.el.find('.LowerPipe'), this);
-		this.player = new window.Player(this.el.find('.Player'), this, this.upperPipe, this.lowerPipe);
+		this.pipeset1 = new window.Pipe(this.el.find('.PipeSet1'), this, 50, -15);
+		this.pipeset2 = new window.Pipe(this.el.find('.PipeSet2'), this, 80, 5);
+		this.pipeset3 = new window.Pipe(this.el.find('.PipeSet3'), this, 110, -20);
+		this.pipeset4 = new window.Pipe(this.el.find('.PipeSet4'), this, 140, -5);
+		
+		this.player = new window.Player(this.el.find('.Player'), this, this.pipeset1, this.pipeset2, this.pipeset3, this.pipeset4);
 		this.isPlaying = false;
 
 		// Cache a bound onFrame since we need it each frame.
@@ -36,8 +39,10 @@ window.Game = (function() {
 		// Update game entities.
 		this.player.onFrame(delta);
 
-		this.upperPipe.onFrame(delta);
-		this.lowerPipe.onFrame(delta);
+		this.pipeset1.onFrame(delta);
+		this.pipeset2.onFrame(delta);
+		this.pipeset3.onFrame(delta);
+		this.pipeset4.onFrame(delta);
 
 		// Request next frame.
 		window.requestAnimationFrame(this.onFrame);
@@ -59,9 +64,14 @@ window.Game = (function() {
 	 * Resets the state of the game so a new game can be started.
 	 */
 	Game.prototype.reset = function() {
+		console.log("now resetting");
 		this.player.reset();
-		this.upperPipe.reset(50, 0);
-		this.lowerPipe.reset(50, 40);
+
+		// resetting the pipes
+		this.pipeset1.reset(50, -15);
+		this.pipeset2.reset(80, 5);
+		this.pipeset3.reset(110, -20);
+		this.pipeset4.reset(140, -5);
 	};
 
 	/**

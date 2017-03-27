@@ -68,23 +68,43 @@
 	}
 }
 
-.UpperPipe {
+.PipeSet1 {
 	position: absolute;
-	top: -30em;
-	left: 0;
+	top: -20em;
+	left: 10em;
 	width: 10em;
-	height: 50em;
-	background-image: url("../images/upperpipe.png");
+	height: 110em;
+	background-image: url("../images/pipes.png");
 	background-size: 100% 100%;
 }
 
-.LowerPipe {
+.PipeSet2 {
 	position: absolute;
-	bottom: 0;
-	left: 0;
+	top: -20em;
+	left: 10em;
 	width: 10em;
-	height: 50em;
-	background-image: url("../images/lowerpipe.png");
+	height: 110em;
+	background-image: url("../images/pipes.png");
+	background-size: 100% 100%;
+}
+
+.PipeSet3 {
+	position: absolute;
+	top: -20em;
+	left: 10em;
+	width: 10em;
+	height: 110em;
+	background-image: url("../images/pipes.png");
+	background-size: 100% 100%;
+}
+
+.PipeSet4 {
+	position: absolute;
+	top: -20em;
+	left: 10em;
+	width: 10em;
+	height: 110em;
+	background-image: url("../images/pipes.png");
 	background-size: 100% 100%;
 }
 

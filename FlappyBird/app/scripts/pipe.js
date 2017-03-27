@@ -8,21 +8,22 @@ window.Pipe = (function() {
 	var SPEED = 30; // * 10 pixels per second
 	var WIDTH = 5;
 	var HEIGHT = 5;
-	var INITIAL_POSITION_X = 40;
+	var INITIAL_POSITION_X = 60;
 	var INITIAL_POSITION_Y = 25;
-	var GRAVITY_SPEED = 25;
+	var GRAVITY_SPEED = 15; // 25
 	var GRAVITY = false;
 
-	var Pipe = function(el, game) {
+	var Pipe = function(el, game, y_pos, x_pos) {
 		this.el = el;
 		this.game = game;
-		this.pos = { x: 0, y: 0 };
+		this.pos = { x: y_pos, y: x_pos };
 	};
 
 	/**
 	 * Resets the state of the player for a new game.
 	 */
 	Pipe.prototype.reset = function(x_pos, y_pos) {
+		GRAVITY = false;
 		this.pos.x = x_pos;
 		this.pos.y = y_pos;
 	};
@@ -35,19 +36,12 @@ window.Pipe = (function() {
 			GRAVITY = true;
 		}
 
-		//this.checkCollisionWithPlayer();
+		if(this.pos.x < -20) {
+			this.pos.x += 120;
+		}
 
 		// Update UI
 		this.el.css('transform', 'translate(' + this.pos.x + 'em, ' + this.pos.y + 'em)');
-	};
-
-	Pipe.prototype.checkCollisionWithPlayer = function() {
-		if (this.pos.x < 0 ||
-			this.pos.x + WIDTH > this.game.WORLD_WIDTH ||
-			this.pos.y < 0 ||
-			this.pos.y + HEIGHT > this.game.WORLD_HEIGHT) {
-			return this.game.gameover();
-		}
 	};
 
 	return Pipe;
