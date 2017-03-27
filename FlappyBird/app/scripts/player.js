@@ -84,6 +84,7 @@ window.Player = (function() {
 
 			if(this.pos.y < this.pipeset1.pos.y + 25 ||
 				this.pos.y > this.pipeset1.pos.y + 39) {
+					
 				// when the player hits the pipe
 				return this.game.gameover();
 			}
