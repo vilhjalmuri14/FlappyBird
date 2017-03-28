@@ -22,6 +22,11 @@ window.Game = (function() {
 
 		// Cache a bound onFrame since we need it each frame.
 		this.onFrame = this.onFrame.bind(this);
+
+		// Play song while game is on
+		$('#song').prop("volume", 0.1);
+		$('#song').trigger("play");
+		
 	};
 
 	/**
