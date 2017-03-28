@@ -12,6 +12,8 @@ window.Player = (function() {
 	var INITIAL_POSITION_Y = 25;
 	var GRAVITY_SPEED = 15; // 25
 	var GRAVITY = false;
+	var rotate = 100;
+	var start = false;
 
 	var Player = function(el, game, pipeset1, pipeset2, pipeset3, pipeset4) {
 		this.el = el;
@@ -30,6 +32,8 @@ window.Player = (function() {
 		GRAVITY = false;
 		this.pos.x = INITIAL_POSITION_X;
 		this.pos.y = INITIAL_POSITION_Y;
+		rotate = 0;
+		start = false;
 	};
 
 	Player.prototype.onFrame = function(delta) {
@@ -55,18 +59,32 @@ window.Player = (function() {
 
 		if (Controls.keys.space) {
 			GRAVITY = true;
-			this.pos.y -= delta + 0.06 * SPEED;
+			this.pos.y -= delta + 0.20 * SPEED;
 
 			// playing sound
 			$('#wingsound').trigger("play");
 
+			if(start == true) {
+				Controls.keys.space = false;
+			}
+
+			start = true;
 			// changing picture
 			this.el.css('background-image','url("../images/birdup.png")');
-			this.el.css('transform', 'translateZ(0) translate(' + this.pos.x + 'em, ' + this.pos.y + 'em) rotate(-45deg)');
+			rotate = -20;
+			this.el.css('transform', 'translateZ(0) translate(' + this.pos.x + 'em, ' + this.pos.y + 'em) rotate('+ rotate +'deg)');
 		}
 		else {
 			// Update UI
-			this.el.css('transform', 'translateZ(0) translate(' + this.pos.x + 'em, ' + this.pos.y + 'em) rotate(45deg)');
+			if(GRAVITY) {
+				if(rotate < 90) {
+					rotate += 1;
+				}
+				this.el.css('transform', 'translateZ(0) translate(' + this.pos.x + 'em, ' + this.pos.y + 'em) rotate(' +rotate+'deg)');
+			}
+			else {
+				this.el.css('transform', 'translateZ(0) translate(' + this.pos.x + 'em, ' + this.pos.y + 'em)');
+			}
 		}
 
 		this.checkCollisionWithBounds();
