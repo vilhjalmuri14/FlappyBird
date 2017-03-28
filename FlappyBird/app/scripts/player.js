@@ -52,20 +52,27 @@ window.Player = (function() {
 		if (Controls.keys.up) {
 			this.pos.y -= delta * SPEED;
 		}
+
 		if (Controls.keys.space) {
 			GRAVITY = true;
 			this.pos.y -= delta + 0.06 * SPEED;
 
+			// playing sound
+			$('#wingsound').trigger("play");
+
 			// changing picture
 			this.el.css('background-image','url("../images/birdup.png")');
+			this.el.css('transform', 'translateZ(0) translate(' + this.pos.x + 'em, ' + this.pos.y + 'em) rotate(-45deg)');
+		}
+		else {
+			// Update UI
+			this.el.css('transform', 'translateZ(0) translate(' + this.pos.x + 'em, ' + this.pos.y + 'em) rotate(45deg)');
 		}
 
 		this.checkCollisionWithBounds();
 		this.checkCollisionWithPipes();
 
-		// Update UI
-		this.el.css('transform', 'translateZ(0) translate(' + this.pos.x + 'em, ' + this.pos.y + 'em)');
-	};
+			};
 
 	Player.prototype.checkCollisionWithBounds = function() {
 		if (this.pos.x < 0 ||
