@@ -2,6 +2,8 @@
 window.Game = (function() {
 	'use strict';
 
+	var score;
+
 	/**
 	 * Main game class.
 	 * @param {Element} el jQuery element containing the game.
@@ -16,6 +18,7 @@ window.Game = (function() {
 		
 		this.player = new window.Player(this.el.find('.Player'), this, this.pipeset1, this.pipeset2, this.pipeset3, this.pipeset4);
 		this.isPlaying = false;
+		this.score = 0;
 
 		// Cache a bound onFrame since we need it each frame.
 		this.onFrame = this.onFrame.bind(this);
@@ -44,6 +47,50 @@ window.Game = (function() {
 		this.pipeset3.onFrame(delta);
 		this.pipeset4.onFrame(delta);
 
+		if(this.player.pos.x > this.pipeset1.pos.x) {
+			if(!this.pipeset1.PASSED){
+				this.score = this.score + 1;
+				
+				// Setting score into scoreboard
+				$(".CurrentScoreNumber").text(this.score);
+			}
+
+			this.pipeset1.PASSED = true;
+		}
+
+		if(this.player.pos.x > this.pipeset2.pos.x) {
+			if(!this.pipeset2.PASSED){
+				this.score = this.score + 1;
+				
+				// Setting score into scoreboard
+				$(".CurrentScoreNumber").text(this.score);
+			}
+
+			this.pipeset2.PASSED = true;
+		}
+
+		if(this.player.pos.x > this.pipeset3.pos.x) {
+			if(!this.pipeset3.PASSED){
+				this.score = this.score + 1;
+
+				// Setting score into scoreboard
+				$(".CurrentScoreNumber").text(this.score);
+			}
+
+			this.pipeset3.PASSED = true;
+		}
+
+		if(this.player.pos.x > this.pipeset4.pos.x) {
+			if(!this.pipeset4.PASSED){
+				this.score = this.score + 1;
+
+				// Setting score into scoreboard
+				$(".CurrentScoreNumber").text(this.score);
+			}
+
+			this.pipeset4.PASSED = true;
+		}
+
 		// Request next frame.
 		window.requestAnimationFrame(this.onFrame);
 	};
@@ -64,7 +111,7 @@ window.Game = (function() {
 	 * Resets the state of the game so a new game can be started.
 	 */
 	Game.prototype.reset = function() {
-		console.log("now resetting");
+		this.score = 0;
 		this.player.reset();
 
 		// resetting the pipes
@@ -82,6 +129,7 @@ window.Game = (function() {
 
 		// playing sound
 		$('#diesound').trigger("play");
+
 
 		// Should be refactored into a Scoreboard class.
 		var that = this;
