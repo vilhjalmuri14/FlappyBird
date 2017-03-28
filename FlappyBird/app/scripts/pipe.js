@@ -12,6 +12,7 @@ window.Pipe = (function() {
 	var INITIAL_POSITION_Y = 25;
 	var GRAVITY_SPEED = 15; // 25
 	var GRAVITY = false;
+	var PASSED = false;
 
 	var Pipe = function(el, game, y_pos, x_pos) {
 		this.el = el;
@@ -24,6 +25,7 @@ window.Pipe = (function() {
 	 */
 	Pipe.prototype.reset = function(x_pos, y_pos) {
 		GRAVITY = false;
+		this.PASSED = false;
 		this.pos.x = x_pos;
 		this.pos.y = y_pos;
 	};
@@ -38,6 +40,7 @@ window.Pipe = (function() {
 
 		if(this.pos.x < -20) {
 			this.pos.x += 120;
+			this.PASSED = false;
 		}
 
 		// Update UI
