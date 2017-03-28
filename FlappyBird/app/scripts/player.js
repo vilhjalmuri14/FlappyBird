@@ -14,6 +14,7 @@ window.Player = (function() {
 	var GRAVITY = false;
 	var rotate = 100;
 	var start = false;
+	var fly = 0;
 
 	var Player = function(el, game, pipeset1, pipeset2, pipeset3, pipeset4) {
 		this.el = el;
@@ -34,6 +35,7 @@ window.Player = (function() {
 		this.pos.y = INITIAL_POSITION_Y;
 		rotate = 0;
 		start = false;
+		fly = 0;
 	};
 
 	Player.prototype.onFrame = function(delta) {
@@ -41,22 +43,23 @@ window.Player = (function() {
 			this.pos.y += delta * GRAVITY_SPEED;
 
 			// default picture
-			this.el.css('background-image','url("../images/bird.png")');
+			if(fly < 10) {
+				fly += 1;
+			}
+			else {
+				fly = 0;
+			}
+			if(fly < 3) {
+				this.el.css('background-image','url("../images/birdup.png")');
+			}
+			else if (fly < 6) {
+				this.el.css('background-image','url("../images/birdmiddle.png")');
+			}
+			else {
+				this.el.css('background-image','url("../images/bird.png")');
+			}
 		}
-
-		if (Controls.keys.right) {
-			this.pos.x += delta * SPEED;
-		}
-		if (Controls.keys.left) {
-			this.pos.x -= delta * SPEED;
-		}
-		if (Controls.keys.down) {
-			this.pos.y += delta * SPEED;
-		}
-		if (Controls.keys.up) {
-			this.pos.y -= delta * SPEED;
-		}
-
+		
 		if (Controls.keys.space) {
 			GRAVITY = true;
 			this.pos.y -= delta + 0.20 * SPEED;
@@ -70,7 +73,7 @@ window.Player = (function() {
 
 			start = true;
 			// changing picture
-			this.el.css('background-image','url("../images/birdup.png")');
+
 			rotate = -20;
 			this.el.css('transform', 'translateZ(0) translate(' + this.pos.x + 'em, ' + this.pos.y + 'em) rotate('+ rotate +'deg)');
 		}
