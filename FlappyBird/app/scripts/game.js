@@ -20,13 +20,44 @@ window.Game = (function() {
 		this.isPlaying = false;
 		this.score = 0;
 
+		this.isvolumemuted = false;
+
 		// Cache a bound onFrame since we need it each frame.
 		this.onFrame = this.onFrame.bind(this);
 
 		// Play song while game is on
 		$('#song').prop("volume", 0.1);
 		$('#song').trigger("play");
-		
+
+
+		// muting and unmuting
+		$(function() {
+	 		$('#volumeimg').click(function(){
+				if(this.isvolumemuted === false) {
+					$("#volumeimg").attr('src',"../images/volume-off.png");
+					this.isvolumemuted = true;
+
+					//muting all elements
+					document.getElementById('diesound').muted = true;
+					document.getElementById('hitsound').muted = true;
+					document.getElementById('pointsound').muted = true;
+					document.getElementById('swooshingsound').muted = true;
+					document.getElementById('wingsound').muted = true;	
+					document.getElementById('song').muted = true;
+				}
+				else {
+					$("#volumeimg").attr('src',"../images/volume-high.png");
+					this.isvolumemuted = false;
+					document.getElementById('diesound').muted = false;
+					document.getElementById('hitsound').muted = false;
+					document.getElementById('pointsound').muted = false;
+					document.getElementById('swooshingsound').muted = false;
+					document.getElementById('wingsound').muted = false;	
+					document.getElementById('song').muted = false;
+				}
+   				return false;
+ 		});
+});
 	};
 
 	/**
@@ -52,45 +83,50 @@ window.Game = (function() {
 		this.pipeset3.onFrame(delta);
 		this.pipeset4.onFrame(delta);
 
-		if(this.player.pos.x > this.pipeset1.pos.x) {
+		// check i the pipes were passed
+		if(this.player.pos.x > this.pipeset1.pos.x + 15) {
 			if(!this.pipeset1.PASSED){
 				this.score = this.score + 1;
 				
 				// Setting score into scoreboard
 				$(".CurrentScoreNumber").text(this.score);
+				$('#pointsound').trigger("play");
 			}
 
 			this.pipeset1.PASSED = true;
 		}
 
-		if(this.player.pos.x > this.pipeset2.pos.x) {
+		if(this.player.pos.x > this.pipeset2.pos.x + 15) {
 			if(!this.pipeset2.PASSED){
 				this.score = this.score + 1;
 				
 				// Setting score into scoreboard
 				$(".CurrentScoreNumber").text(this.score);
+				$('#pointsound').trigger("play");
 			}
 
 			this.pipeset2.PASSED = true;
 		}
 
-		if(this.player.pos.x > this.pipeset3.pos.x) {
+		if(this.player.pos.x > this.pipeset3.pos.x + 15) {
 			if(!this.pipeset3.PASSED){
 				this.score = this.score + 1;
 
 				// Setting score into scoreboard
 				$(".CurrentScoreNumber").text(this.score);
+				$('#pointsound').trigger("play");
 			}
 
 			this.pipeset3.PASSED = true;
 		}
 
-		if(this.player.pos.x > this.pipeset4.pos.x) {
+		if(this.player.pos.x > this.pipeset4.pos.x + 15) {
 			if(!this.pipeset4.PASSED){
 				this.score = this.score + 1;
 
 				// Setting score into scoreboard
 				$(".CurrentScoreNumber").text(this.score);
+				$('#pointsound').trigger("play");
 			}
 
 			this.pipeset4.PASSED = true;
@@ -100,11 +136,16 @@ window.Game = (function() {
 		window.requestAnimationFrame(this.onFrame);
 	};
 
+	
+
 	/**
 	 * Starts a new game.
 	 */
 	Game.prototype.start = function() {
 		this.reset();
+
+		// setting the score
+		$(".CurrentScoreNumber").text(this.score);
 
 		// Restart the onFrame loop
 		this.lastFrame = +new Date() / 1000;
@@ -118,6 +159,9 @@ window.Game = (function() {
 	Game.prototype.reset = function() {
 		this.score = 0;
 		this.player.reset();
+
+		// setting the score
+		$(".CurrentScoreNumber").text(this.score);
 
 		// resetting the pipes
 		this.pipeset1.reset(50, -15);
@@ -156,5 +200,4 @@ window.Game = (function() {
 
 	return Game;
 })();
-
 
